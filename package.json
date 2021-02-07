@@ -1,0 +1,46 @@
+{
+  "name": "dancities",
+  "version": "1.0.0",
+  "description": "Connect dancers with opportunities.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --mode development",
+    "build": "webpack --mode development",
+    "scss": "sass --no-source-map --watch src/scss/styles.scss src/App.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://staceylee0331@bitbucket.org/dancities/dancities.git"
+  },
+  "keywords": [
+    "dance",
+    "hip-hop",
+    "dancities",
+    "dance",
+    "opportunities"
+  ],
+  "author": "Stacey Lee",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/dancities/dancities#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-hot-loader": "^4.13.0",
+    "react-router-dom": "^5.2.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.0.1",
+    "file-loader": "^6.2.0",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.0.0",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.1"
+  }
+}
