@@ -1,7 +1,7 @@
 {
-  "name": "dancities",
+  "name": "todo-plus",
   "version": "1.0.0",
-  "description": "Connect dancers with opportunities.",
+  "description": "A fancier todo list",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,20 +11,25 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://staceylee0331@bitbucket.org/dancities/dancities.git"
+    "url": "https://github.com/stacey0331/todo-plus"
   },
   "keywords": [
-    "dance",
-    "hip-hop",
-    "dancities",
-    "dance",
-    "opportunities"
+    "todo",
+    "todo-plus",
+    "todo list",
+    "task magagement"
   ],
   "author": "Stacey Lee",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/dancities/dancities#readme",
+  "homepage": "",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.34",
+    "@fortawesome/free-brands-svg-icons": "^5.15.2",
+    "@fortawesome/free-regular-svg-icons": "^5.15.2",
+    "@fortawesome/free-solid-svg-icons": "^5.15.2",
+    "@fortawesome/react-fontawesome": "^0.1.14",
     "axios": "^0.21.1",
+    "nanoid": "^3.1.20",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-hot-loader": "^4.13.0",

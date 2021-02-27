@@ -1,0 +1,65 @@
+@import 'constants';
+
+* {
+    font-family: 'Quicksand', sans-serif;
+}
+
+.grid2C {
+    display: grid;
+    grid-template-columns: 300px auto;
+    height: 100%;
+}
+
+.category {
+    background-color: $theme-color;
+    height: 100%;
+
+    .categoryList {
+        height: 650px;
+    }
+
+    .selectedCategory {
+        display: flex;
+        align-items: center;
+        background-color: $theme-color;
+        height: 40px;
+        color: white;
+        
+        .numOfItems {
+            visibility: show;
+        }
+    }
+
+    .unselectedCategory {
+        @extend .selectedCategory;
+        background-color: $theme-color;
+
+        .numOfItems {
+            visibility: hidden;
+        }
+    }
+}
+
+html, body, #root {
+    height: 100%;
+    margin: 0;
+}
+
+.noBackgroundBtn {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+@mixin dot {
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.redDot {
+    @include dot;
+    background-color: red;
+}
