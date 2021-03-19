@@ -3,9 +3,12 @@ const Schema = mongoose.Schema;
 
 const dataModel = new Schema(
     {
-        category_name: {type: String, required: true },
-        item_list: { type: Array, required: true }
+        item_name: {type: String, required: true},
+        category_name: {type: String, required: true},
+        time: {type: Date, required: true},
+        priority: {type: String, required: true},
+        completed: {type: Boolean, required: true},
     },
 )
 
-module.exports = mongoose.model('responses', dataModel);
+module.exports = mongoose.model('todo', dataModel);
