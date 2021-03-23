@@ -51,13 +51,26 @@ addItem = (req, res) => {
         });
 };
 
-// deleteItem = (req, res) => {
+deleteItem = async (req, res) => {
+    await dataModel.findOneAndDelete({ _id: req.params.id }, (err, todo) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err });
+        }
 
-// };
+        if (!todo) {
+            return res
+                .status(404)
+                .json({ success: false, error: `Todo item not found` });
+        }
+
+        return res.status(200).json({ success: true, data: todo });
+    }).catch(err => console.log(err));
+};
 
 
 module.exports = {
     // TODO: add in all the methods
     addItem,
-    getTodoList
+    getTodoList,
+    deleteItem
 }

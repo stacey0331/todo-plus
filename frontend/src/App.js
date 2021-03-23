@@ -69,8 +69,8 @@ const App = (props) => {
         const date = document.getElementById('selectDate').value;
         const time = document.getElementById('selectTime').value;
         const priority = document.getElementById('selectPriority').value;
+
         api.addItem(name, 'test  category', date, priority);
-        closePopup();
     }
 
     return (
@@ -114,6 +114,7 @@ const App = (props) => {
                 </button>
                 <button>Delete category</button>
                 <select>
+                    <option>Time created</option>
                     <option>Priority: high to low</option>
                     <option>Time</option>
                 </select>

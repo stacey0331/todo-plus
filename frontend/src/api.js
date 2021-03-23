@@ -5,7 +5,7 @@ const api = axios.create({
 });
 
 const addItem = (itemName, categoryName, time, priority) => {
-    var promise = api.post('/addItem', {
+    api.post('/addItem', {
         item_name: itemName,
         category_name: categoryName,
         time: time,
@@ -13,25 +13,27 @@ const addItem = (itemName, categoryName, time, priority) => {
         completed: false,
     })
     .then(res => {
-        alert('Can\'t create item');
         console.log('Client: Item created');
+        window.location.reload();
     })
     .catch(err => {
+        alert('Can\'t create item. Please make sure you fill out all the fields');
         console.log('Client: fail to create item');
     });
-    return promise;
 };
 
 const getTodoList = () => api.get('/getTodoList');
 
+const deleteItemById = id => api.delete(`/deleteItem/${id}`);
+
 // export const getTodoListByCategory = category_name => api.get(`/list/${category_name}`);
 // export const updateTodoById = (id, payload) => api.put(`list/${}`);
-// export const deleteItemById = id => api.delete(`/movie/${id}`);
 // export const deleteCategoryByName = 
 
 const apis = {
     addItem,
-    getTodoList
+    getTodoList,
+    deleteItemById
 }
 
 export default apis;
