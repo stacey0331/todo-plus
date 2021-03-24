@@ -67,10 +67,50 @@ deleteItem = async (req, res) => {
     }).catch(err => console.log(err));
 };
 
+updateTodo = (req, res) => {
+    const body = req.body;
+
+    if (!body) {
+        return res.status(400).json({
+            success: false,
+            error: 'You must provide a body to update',
+        });
+    }
+
+    dataModel.findOne({ _id: req.params.id }, (err, todo) => {
+        if (err) {
+            return res.status(404).json({
+                err,
+                message: 'Todo not found!',
+            })
+        }
+        todo.item_name = body.item_name;
+        todo.category_name = body.category_name;
+        todo.time = body.time;
+        todo.priority = body.priority;
+        todo.completed = body.completed;
+        todo
+            .save()
+            .then(() => {
+                return res.status(200).json({
+                    success: true,
+                    id: todo._id,
+                    message: 'Todo updated!',
+                })
+            })
+            .catch(error => {
+                return res.status(404).json({
+                    error,
+                    message: 'Todo not updated!',
+                })
+            })
+    });
+};
 
 module.exports = {
     // TODO: add in all the methods
     addItem,
     getTodoList,
-    deleteItem
+    deleteItem,
+    updateTodo
 }

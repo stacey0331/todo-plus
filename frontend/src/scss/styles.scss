@@ -144,3 +144,11 @@ textarea {
     height: 80px;
     resize: none;
 }
+
+.completedItem {
+    text-decoration: line-through;
+}
+
+.incompleteItem {
+    text-decoration: none;
+}

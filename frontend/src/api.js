@@ -12,11 +12,11 @@ const addItem = (itemName, categoryName, time, priority) => {
         priority: priority,
         completed: false,
     })
-    .then(res => {
+    .then(() => {
         console.log('Client: Item created');
         window.location.reload();
     })
-    .catch(err => {
+    .catch(() => {
         alert('Can\'t create item. Please make sure you fill out all the fields');
         console.log('Client: fail to create item');
     });
@@ -26,14 +26,25 @@ const getTodoList = () => api.get('/getTodoList');
 
 const deleteItemById = id => api.delete(`/deleteItem/${id}`);
 
+const updateTodoById = (id, payload) => {
+    console.log(payload);
+    api.put(`updateTodo/${id}`, payload)
+    .then(() => {
+        console.log('Client: item updated');
+    })
+    .catch(() => {
+        console.log('Client: fail to update item');
+    })
+}
+
 // export const getTodoListByCategory = category_name => api.get(`/list/${category_name}`);
-// export const updateTodoById = (id, payload) => api.put(`list/${}`);
 // export const deleteCategoryByName = 
 
 const apis = {
     addItem,
     getTodoList,
-    deleteItemById
+    deleteItemById,
+    updateTodoById
 }
 
 export default apis;

@@ -5,7 +5,6 @@ const router = express.Router()
 router.post('/addItem', dataCtrl.addItem);
 router.get('/getTodoList', dataCtrl.getTodoList);
 router.delete('/deleteItem/:id', dataCtrl.deleteItem);
-// router.get('/movie/:id', MovieCtrl.getMovieById)
-// router.put('/movie/:id', MovieCtrl.updateMovie)
+router.put('/updateTodo/:id', dataCtrl.updateTodo);
 
 module.exports = router;
