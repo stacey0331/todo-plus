@@ -66,11 +66,10 @@ const App = (props) => {
     function submitAddTaskForm(event) {
         event.preventDefault();
         const name = document.getElementById('todoName').value;
-        const date = document.getElementById('selectDate').value;
-        const time = document.getElementById('selectTime').value;
+        const time = new Date(document.getElementById('selectDate').value + 'T' + document.getElementById('selectTime').value);
         const priority = document.getElementById('selectPriority').value;
 
-        api.addItem(name, 'test  category', date, priority);
+        api.addItem(name, 'test  category', time, priority);
     }
 
     return (
@@ -86,9 +85,9 @@ const App = (props) => {
                             <input id="selectDate" type="date" />
                             <input id="selectTime" type="time" />
                             <select id="selectPriority">
-                                <option>Low</option>
-                                <option>Medium</option>
-                                <option>High</option>
+                                <option value={3}>Low</option>
+                                <option value={2}>Medium</option>
+                                <option value={1}>High</option>
                             </select>
                         </div>
                         <input className="coloredBtn" type="submit" value="Add" />

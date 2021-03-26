@@ -6,9 +6,18 @@ import api from '../api';
 const TodoItem = (props) => {
     const [todo, setTodo] = useState(props);
 
+    const options = {
+        year: 'numeric', month: 'numeric', day: 'numeric',
+        hour: 'numeric', minute: 'numeric', second: 'numeric',
+        hour12: false,
+        timeZone: 'Asia/Shanghai'
+    };
+    
     function deleteItem() {
-        api.deleteItemById(props.id);
-        window.location.reload();
+        if (confirm('Delete item?')) {
+            api.deleteItemById(props.id);
+            window.location.reload();
+        }
     }
 
     function handleCheckbox() {
@@ -29,9 +38,9 @@ const TodoItem = (props) => {
     return (
         <div key={props.id}>
            <span 
-                className={todo.priority === 'High' ?
-                'redDot': todo.priority === 'Medium' ?
-                'yellowDot' : todo.priority === 'Low' ?
+                className={todo.priority === 1 ?
+                'redDot': todo.priority === 2 ?
+                'yellowDot' : todo.priority === 3 ?
                 'greenDot' : 'greyDot'}>
             </span>
             <label className={todo.completed ? 'completedItem' : 'incompleteItem'}> {todo.text} </label>
@@ -39,7 +48,7 @@ const TodoItem = (props) => {
             <button className="noBackgroundBtn" onClick={deleteItem}>
                 <FontAwesomeIcon icon={['fas', 'times']} />
             </button>
-            <div> {todo.time} </div>
+            <div>{new Intl.DateTimeFormat('en-US', options).format(new Date(todo.time))}</div>
         </div>
     );
 }

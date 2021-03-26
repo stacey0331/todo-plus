@@ -27,7 +27,6 @@ const getTodoList = () => api.get('/getTodoList');
 const deleteItemById = id => api.delete(`/deleteItem/${id}`);
 
 const updateTodoById = (id, payload) => {
-    console.log(payload);
     api.put(`updateTodo/${id}`, payload)
     .then(() => {
         console.log('Client: item updated');
