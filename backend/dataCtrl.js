@@ -1,11 +1,7 @@
-const dataModel = require('./dataModel.js');
-
-// getCategories = async (req, res) => {
-
-// };
+const todoModel = require('./todoModel.js');
 
 getTodoList = async (req, res) => {
-    await dataModel.find({}, (err, responses) => { // find { // fill this out // }
+    await todoModel.find({}, (err, responses) => { // find { // fill this out // }
         if (err) {
             return res.status(400).json({ success: false, error: err });
         }
@@ -28,7 +24,7 @@ addItem = (req, res) => {
         });
     }
 
-    const response = new dataModel(body);
+    const response = new todoModel(body);
 
     if (!response) {
         return res.status(400).json({ success: false, error: err });
@@ -52,7 +48,7 @@ addItem = (req, res) => {
 };
 
 deleteItem = async (req, res) => {
-    await dataModel.findOneAndDelete({ _id: req.params.id }, (err, todo) => {
+    await todoModel.findOneAndDelete({ _id: req.params.id }, (err, todo) => {
         if (err) {
             return res.status(400).json({ success: false, error: err });
         }
@@ -77,7 +73,7 @@ updateTodo = (req, res) => {
         });
     }
 
-    dataModel.findOne({ _id: req.params.id }, (err, todo) => {
+    todoModel.findOne({ _id: req.params.id }, (err, todo) => {
         if (err) {
             return res.status(404).json({
                 err,
@@ -108,7 +104,6 @@ updateTodo = (req, res) => {
 };
 
 module.exports = {
-    // TODO: add in all the methods
     addItem,
     getTodoList,
     deleteItem,
