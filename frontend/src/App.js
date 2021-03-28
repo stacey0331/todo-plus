@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import { BrowserRouter as Router,
+    Link,
+    Route,
+} from 'react-router-dom';
 import { hot } from "react-hot-loader";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -23,7 +26,6 @@ const App = () => {
         });
     }, []);
 
-    
     function addCategory() {
         api.addCategory('new category');
     }
@@ -37,7 +39,7 @@ const App = () => {
                             categories.map(category => (
                                 <Link to={`/${category._id}`}>
                                     <span className="categoryName">{category.name}</span>
-                                    <div className="numOfItems">{ category.num_of_items }</div>
+                                    <div className="numOfItems">{ category.num_of_item }</div>
                                 </Link>
                             ))
                         ) : (

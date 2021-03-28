@@ -19,10 +19,10 @@ const addCategory = name => {
     });
 };
 
-const addItem = (itemName, categoryName, time, priority) => {
+const addItem = (itemName, categoryId, time, priority) => {
     api.post('/addItem', {
         item_name: itemName,
-        category_name: categoryName,
+        category_id: categoryId,
         time: time,
         priority: priority,
         completed: false,

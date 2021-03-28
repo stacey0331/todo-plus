@@ -7,6 +7,7 @@ import api from '../api';
 const Main = (props) => {
     const [todos, setTodos] = useState(null);
     const [showAddPopup, setShowAddPopup] = useState(false);
+    const categoryId = props.match.params.category_id;
 
     console.log(props.match.params.category_id);
     let todoList = 'hi';
@@ -44,7 +45,7 @@ const Main = (props) => {
         const time = new Date(document.getElementById('selectDate').value + 'T' + document.getElementById('selectTime').value);
         const priority = document.getElementById('selectPriority').value;
 
-        api.addItem(name, 'test category', time, priority);
+        api.addItem(name, categoryId, time, priority);
     }
 
     return (
