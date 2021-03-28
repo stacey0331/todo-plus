@@ -15,21 +15,23 @@
 .category .categoryList {
   height: 650px;
 }
-.category .selectedCategory, .category .unselectedCategory {
+.category a {
+  color: white;
+  text-decoration: none;
   display: flex;
   align-items: center;
-  background-color: #b499da;
+  /* Vertical align */
   height: 40px;
-  color: white;
+  font-weight: 600;
 }
-.category .selectedCategory .numOfItems, .category .unselectedCategory .numOfItems {
-  visibility: show;
+.category a .numOfItems {
+  display: none;
 }
-.category .unselectedCategory {
-  background-color: #b499da;
+.category .selectedCategory {
+  background-color: #bca9da;
 }
-.category .unselectedCategory .numOfItems {
-  visibility: hidden;
+.category .selectedCategory .numOfItems {
+  display: inline;
 }
 
 html, body, #root {

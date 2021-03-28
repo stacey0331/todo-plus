@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router,
-    Link,
+    NavLink,
     Route,
 } from 'react-router-dom';
 import { hot } from "react-hot-loader";
@@ -30,6 +30,8 @@ const App = () => {
         api.addCategory('new category');
     }
 
+    // window.location.href.substring(window.location.href.indexOf('/') + 1)
+
     return (
         <Router>
             <div className="grid2C">
@@ -37,10 +39,10 @@ const App = () => {
                     <ul>
                         {categories ? (
                             categories.map(category => (
-                                <Link to={`/${category._id}`}>
+                                <NavLink activeClassName="selectedCategory" to={`/${category._id}`}>
                                     <span className="categoryName">{category.name}</span>
-                                    <div className="numOfItems">{ category.num_of_item }</div>
-                                </Link>
+                                    <div className="numOfItems">{category.num_of_item}</div>
+                                </NavLink>
                             ))
                         ) : (
                             <div>Loading ...</div> 

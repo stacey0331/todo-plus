@@ -18,24 +18,24 @@
         height: 650px;
     }
 
-    .selectedCategory {
-        display: flex;
-        align-items: center;
-        background-color: $theme-color;
-        height: 40px;
+    a {
         color: white;
-        
+        text-decoration: none;
+        display: flex;
+        align-items: center; /* Vertical align */
+        height: 40px;
+        font-weight: 600;
+    
         .numOfItems {
-            visibility: show;
+            display: none;
         }
     }
 
-    .unselectedCategory {
-        @extend .selectedCategory;
-        background-color: $theme-color;
-
+    .selectedCategory {
+        background-color: $theme-color-light;
+        
         .numOfItems {
-            visibility: hidden;
+            display: inline;
         }
     }
 }
