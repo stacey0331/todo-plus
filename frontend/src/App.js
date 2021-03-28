@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
-import { nanoid } from "nanoid";
 import { hot } from "react-hot-loader";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -15,15 +14,18 @@ import api from './api';
 
 library.add(fas, fab)
 
-const App = (props) => {
-    const [categories, setCategories] = useState(props.categories);
-    
-    let categoryId = '';
+const App = () => {
+    const [categories, setCategories] = useState(null);
 
+    useEffect(() => {
+        api.getCategories().then(categories => {
+            setCategories(categories.data.data);
+        });
+    }, []);
+
+    
     function addCategory() {
         api.addCategory('new category');
-        const newCategory = { key: "category-" + nanoid(), name: 'The name', numOfItems: 0 };
-        setCategories([...categories, newCategory]);
     }
 
     return (

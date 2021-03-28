@@ -1,19 +1,19 @@
 const todoModel = require('./todoModel.js');
 const categoryModel = require('./categoryModel.js');
 
-// getCategories = async (req, res) => {
-//     await categoryModel.find({}, (err, categories) => {
-//         if (err) {
-//             return res.status(400).json({ success: false, error: err });
-//         }
-//         if (!categories.length) {
-//             return res
-//                 .status(404)
-//                 .json({ success: false, error: 'Categories not found' })
-//         }
-//         return res.status(200).json({ success: true, data: categories })
-//     }).catch(err => console.log('Error getting categories: ' + err));
-// };
+getCategories = async (req, res) => {
+    await categoryModel.find({}, (err, categories) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err });
+        }
+        if (!categories.length) {
+            return res
+                .status(404)
+                .json({ success: false, error: 'Categories not found' })
+        }
+        return res.status(200).json({ success: true, data: categories })
+    }).catch(err => console.log('Error getting categories: ' + err));
+};
 
 addCategory = (req, res) => {
     const body = req.body;
@@ -156,5 +156,6 @@ module.exports = {
     getTodoList,
     deleteItem,
     updateTodo,
-    addCategory
+    addCategory,
+    getCategories
 }

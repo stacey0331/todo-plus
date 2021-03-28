@@ -39,6 +39,8 @@ const addItem = (itemName, categoryName, time, priority) => {
 
 const getTodoList = () => api.get('/getTodoList');
 
+const getCategories = () => api.get('/getCategories');
+
 const deleteItemById = id => api.delete(`/deleteItem/${id}`);
 
 const updateTodoById = (id, payload) => {
@@ -59,7 +61,8 @@ const apis = {
     getTodoList,
     deleteItemById,
     updateTodoById,
-    addCategory
+    addCategory,
+    getCategories
 }
 
 export default apis;
