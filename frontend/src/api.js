@@ -53,9 +53,6 @@ const updateTodoById = (id, payload) => {
     })
 }
 
-// export const getTodoListByCategory = category_name => api.get(`/list/${category_name}`);
-// export const deleteCategoryByName = 
-
 const apis = {
     addItem,
     getTodoList,

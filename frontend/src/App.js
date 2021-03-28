@@ -18,11 +18,16 @@ import api from './api';
 library.add(fas, fab)
 
 const App = () => {
+    const [todos, setTodos] = useState(null);
     const [categories, setCategories] = useState(null);
 
     useEffect(() => {
         api.getCategories().then(categories => {
             setCategories(categories.data.data);
+        });
+
+        api.getTodoList().then(todosIn => {
+            setTodos(todosIn.data.data);
         });
     }, []);
 
@@ -58,8 +63,11 @@ const App = () => {
                     <Route exact path="/" render={() => (
                         <h1>Welcome to TODO +</h1>
                     )} />
-
-                    <Route path="/:category_id" component={Main} />
+                    {todos && (
+                        <Route path="/:category_id" render={({ match }) => (
+                            <Main todos={todos.filter(todo => todo.category_id === match.params.category_id )} />
+                        )} />
+                    )}
                 </div>
             </div>
         </Router>

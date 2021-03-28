@@ -1,35 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useEffect } from "react";
 
-import TodoItem from './TodoItem';
 import api from '../api';
 
-const Main = (props) => {
-    const [todos, setTodos] = useState(null);
+const Main = ({ todos }) => {
     const [showAddPopup, setShowAddPopup] = useState(false);
-    const categoryId = props.match.params.category_id;
-
-    console.log(props.match.params.category_id);
-    let todoList = 'hi';
-
-    if (todos) {
-        todoList = todos.map(todo => (
-            <TodoItem
-                id={todo._id}
-                text={todo.item_name}
-                category={todo.category_name}
-                completed={todo.completed}
-                priority={todo.priority}
-                time={todo.time}
-            />
-        ));
-    }
-
-    useEffect(() => {
-        api.getTodoList().then(todos => {
-            setTodos(todos.data.data);
-        });
-    }, []);
+    const category_id = window.location.pathname.substring(1);
 
     function showAddTaskPopup() {
         setShowAddPopup(true);
@@ -45,12 +21,34 @@ const Main = (props) => {
         const time = new Date(document.getElementById('selectDate').value + 'T' + document.getElementById('selectTime').value);
         const priority = document.getElementById('selectPriority').value;
 
-        api.addItem(name, categoryId, time, priority);
+        api.addItem(name, category_id, time, priority);
+    }
+
+    const options = {
+        year: 'numeric', month: 'numeric', day: 'numeric',
+        hour: 'numeric', minute: 'numeric', second: 'numeric',
+        hour12: false,
+        timeZone: 'Asia/Shanghai'
+    };
+
+    function handleCheckbox() {
+        let newTodo = JSON.parse(JSON.stringify(todo));
+        newTodo.completed = !newTodo.completed;
+        setTodo(newTodo);
+
+        const payload = {
+            item_name: newTodo.text,
+            category_id: newTodo.category_id,
+            time: newTodo.time,
+            priority: newTodo.priority,
+            completed: newTodo.completed,
+        }
+        api.updateTodoById(props.id, payload);
     }
 
     return (
         <>
-            {/* Add task pop up */}
+            {/* Add task pop up starts */}
             <div className={`modal ${showAddPopup ? "displayBlock" : "displayNone"}`}>
                 <div className="modal-content">
                     <span className="close" onClick={closePopup}>&times;</span>
@@ -70,7 +68,7 @@ const Main = (props) => {
                     </form>
                 </div>
             </div>
-            {/* Add task pop up */}
+            {/* Add task pop up ends */}
 
 
             <h2> Title </h2>
@@ -85,7 +83,26 @@ const Main = (props) => {
                 <option>Time</option>
             </select>
             <div>
-                {todoList}
+                {todos ? (
+                    todos.map(todo => (
+                        <div key={todo._id}>
+                            <span 
+                                className={todo.priority === 1 ?
+                                'redDot': todo.priority === 2 ?
+                                'yellowDot' : todo.priority === 3 ?
+                                'greenDot' : 'greyDot'}>
+                            </span>
+                            <label className={todo.completed ? 'completedItem' : 'incompleteItem'}> {todo.item_name} </label>
+                            <input type="checkbox" id="completeCheckbox" defaultChecked={todo.completed} onChange={handleCheckbox} />
+                            <button className="noBackgroundBtn" onClick={() => (confirm('Delete item?') && api.deleteItemById(todo._id) && window.location.reload())}>
+                                <FontAwesomeIcon icon={['fas', 'times']} />
+                            </button>
+                            <div>{new Intl.DateTimeFormat('en-US', options).format(new Date(todo.time))}</div>
+                        </div>
+                    ))
+                ) : (
+                    <div>Loading ...</div> 
+                )}
             </div>
         </>
     );

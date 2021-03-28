@@ -129,7 +129,7 @@ updateTodo = (req, res) => {
             })
         }
         todo.item_name = body.item_name;
-        todo.category_name = body.category_name;
+        todo.category_id = body.category_id;
         todo.time = body.time;
         todo.priority = body.priority;
         todo.completed = body.completed;
