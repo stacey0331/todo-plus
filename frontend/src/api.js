@@ -4,6 +4,21 @@ const api = axios.create({
     baseURL: 'http://localhost:8000/api',
 });
 
+const addCategory = name => {
+    api.post('/addCategory', {
+        name: name,
+        num_of_item: 10,
+    })
+    .then(() => {
+        console.log('Client: Category created');
+        window.location.reload();
+    })
+    .catch(() => {
+        alert('Can\'t create category.');
+        console.log('Client: fail to create category');
+    });
+};
+
 const addItem = (itemName, categoryName, time, priority) => {
     api.post('/addItem', {
         item_name: itemName,
@@ -43,7 +58,8 @@ const apis = {
     addItem,
     getTodoList,
     deleteItemById,
-    updateTodoById
+    updateTodoById,
+    addCategory
 }
 
 export default apis;

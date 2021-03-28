@@ -21,6 +21,7 @@ const App = (props) => {
     let categoryId = '';
 
     function addCategory() {
+        api.addCategory('new category');
         const newCategory = { key: "category-" + nanoid(), name: 'The name', numOfItems: 0 };
         setCategories([...categories, newCategory]);
     }

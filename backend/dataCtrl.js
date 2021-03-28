@@ -1,17 +1,65 @@
 const todoModel = require('./todoModel.js');
+const categoryModel = require('./categoryModel.js');
+
+// getCategories = async (req, res) => {
+//     await categoryModel.find({}, (err, categories) => {
+//         if (err) {
+//             return res.status(400).json({ success: false, error: err });
+//         }
+//         if (!categories.length) {
+//             return res
+//                 .status(404)
+//                 .json({ success: false, error: 'Categories not found' })
+//         }
+//         return res.status(200).json({ success: true, data: categories })
+//     }).catch(err => console.log('Error getting categories: ' + err));
+// };
+
+addCategory = (req, res) => {
+    const body = req.body;
+
+    if (!body) {
+        return res.status(400).json({
+            success: false,
+            error: 'Fail to add item',
+        });
+    }
+
+    const category = new categoryModel(body);
+
+    if (!category) {
+        return res.status(400).json({ success: false, error: err });
+    }
+
+    category
+        .save()
+        .then(() => {
+            return res.status(201).json({
+                success: true,
+                id: category._id,
+                message: 'Server: Category created!',
+            })
+        })
+        .catch(error => {
+            return res.status(400).json({
+                error,
+                message: 'Server: Failed to create category...'
+            })
+        });
+};
 
 getTodoList = async (req, res) => {
-    await todoModel.find({}, (err, responses) => { // find { // fill this out // }
+    await todoModel.find({}, (err, todos) => { // find { // fill this out // }
         if (err) {
             return res.status(400).json({ success: false, error: err });
         }
-        if (!responses.length) {
+        if (!todos.length) {
             return res
                 .status(404)
-                .json({ success: false, error: 'Response not found' })
+                .json({ success: false, error: 'Todos not found' })
         }
-        return res.status(200).json({ success: true, data: responses })
-    }).catch(err => console.log('Error getting list: ' + err));
+        return res.status(200).json({ success: true, data: todos })
+    }).catch(err => console.log('Error getting todo list: ' + err));
 };
 
 addItem = (req, res) => {
@@ -24,18 +72,18 @@ addItem = (req, res) => {
         });
     }
 
-    const response = new todoModel(body);
+    const todo = new todoModel(body);
 
-    if (!response) {
+    if (!todo) {
         return res.status(400).json({ success: false, error: err });
     }
 
-    response
+    todo
         .save()
         .then(() => {
             return res.status(201).json({
                 success: true,
-                id: response._id,
+                id: todo._id,
                 message: 'Server: Item created!',
             })
         })
@@ -107,5 +155,6 @@ module.exports = {
     addItem,
     getTodoList,
     deleteItem,
-    updateTodo
+    updateTodo,
+    addCategory
 }

@@ -6,5 +6,6 @@ router.post('/addItem', dataCtrl.addItem);
 router.get('/getTodoList', dataCtrl.getTodoList);
 router.delete('/deleteItem/:id', dataCtrl.deleteItem);
 router.put('/updateTodo/:id', dataCtrl.updateTodo);
+router.post('/addCategory', dataCtrl.addCategory);
 
 module.exports = router;
