@@ -111,6 +111,34 @@ deleteItem = async (req, res) => {
     }).catch(err => console.log(err));
 };
 
+deleteCategory = async (req, res) => {
+    await categoryModel.findOneAndDelete({ _id: req.params.id }, (err, category) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err });
+        }
+
+        if (!category) {
+            return res
+                .status(404)
+                .json({ success: false, error: `Category not found` });
+        }
+    }).catch(err => console.log(err));
+
+    await todoModel.deleteMany({ category_id: req.params.id }, (err, todo) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err });
+        }
+
+        if (!todo) {
+            return res
+                .status(404)
+                .json({ success: false, error: `Todo not found` });
+        }
+
+        return res.status(200).json({ success: true, data: todo });
+    }).catch(err => console.log(err));
+};
+
 updateTodo = (req, res) => {
     const body = req.body;
 
@@ -157,5 +185,6 @@ module.exports = {
     deleteItem,
     updateTodo,
     addCategory,
-    getCategories
+    getCategories,
+    deleteCategory
 }

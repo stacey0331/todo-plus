@@ -35,8 +35,6 @@ const App = () => {
         api.addCategory('new category');
     }
 
-    // window.location.href.substring(window.location.href.indexOf('/') + 1)
-
     return (
         <Router>
             <div className="grid2C">

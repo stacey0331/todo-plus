@@ -43,6 +43,8 @@ const getCategories = () => api.get('/getCategories');
 
 const deleteItemById = id => api.delete(`/deleteItem/${id}`);
 
+const deleteCategoryById = id => api.delete(`/deleteCategory/${id}`);
+
 const updateTodoById = (id, payload) => {
     api.put(`updateTodo/${id}`, payload)
     .then(() => {
@@ -59,7 +61,8 @@ const apis = {
     deleteItemById,
     updateTodoById,
     addCategory,
-    getCategories
+    getCategories,
+    deleteCategoryById
 }
 
 export default apis;

@@ -8,5 +8,6 @@ router.delete('/deleteItem/:id', dataCtrl.deleteItem);
 router.put('/updateTodo/:id', dataCtrl.updateTodo);
 router.post('/addCategory', dataCtrl.addCategory);
 router.get('/getCategories', dataCtrl.getCategories);
+router.delete('/deleteCategory/:id', dataCtrl.deleteCategory);
 
 module.exports = router;

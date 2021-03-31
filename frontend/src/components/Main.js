@@ -1,11 +1,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 
 import api from '../api';
 
 const Main = ({ todos }) => {
     const [showAddPopup, setShowAddPopup] = useState(false);
-    const category_id = window.location.pathname.substring(1);
+    const category_id = useLocation().pathname.substring(1);
+    const history = useHistory();
 
     function showAddTaskPopup() {
         setShowAddPopup(true);
@@ -46,6 +48,14 @@ const Main = ({ todos }) => {
         api.updateTodoById(props.id, payload);
     }
 
+    function handleDeleteCategory() {
+        if (confirm('Delete category?')) {
+            api.deleteCategoryById(category_id);
+            history.replace('/');
+            window.location.reload();
+        }
+    }
+
     return (
         <>
             {/* Add task pop up starts */}
@@ -76,7 +86,7 @@ const Main = ({ todos }) => {
                 <FontAwesomeIcon icon={['fas', 'plus']} />
                 Add task
             </button>
-            <button>Delete category</button>
+            <button onClick={handleDeleteCategory}>Delete category</button>
             <select>
                 <option>Time created</option>
                 <option>Priority: high to low</option>
