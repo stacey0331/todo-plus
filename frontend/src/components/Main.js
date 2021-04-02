@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 
 import api from '../api';
@@ -10,6 +10,10 @@ const Main = ({ todos, categoryName }) => {
     const [showAddPopup, setShowAddPopup] = useState(false);
     const [titleToggle, setTitleToggle] = useState(true);
     const [newTitle, setNewTitle] = useState(categoryName);
+
+    useEffect(() => {
+        setTitleToggle(true);
+    }, [categoryName]);
 
     function showAddTaskPopup() {
         setShowAddPopup(true);
@@ -103,7 +107,9 @@ const Main = ({ todos, categoryName }) => {
                     <input
                         type='text'
                         value={newTitle}
-                        onBlur={handleEditTitle}
+                        onBlur={() => {
+                            setTitleToggle(true);
+                        }}
                         onChange={evt => {
                             setNewTitle(evt.target.value);
                         }}
@@ -113,6 +119,7 @@ const Main = ({ todos, categoryName }) => {
                             }
                         }}
                     />
+                    <button onClick={handleEditTitle}>Done</button>
                 </h2>
             )}
             

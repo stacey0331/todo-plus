@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router,
     NavLink,
     Route,
+    useHistory
 } from 'react-router-dom';
 import { hot } from "react-hot-loader";
 
@@ -22,6 +23,7 @@ library.add(fas, fab);
 const App = () => {
     const [todos, setTodos] = useState(null);
     const [categories, setCategories] = useState(null);
+    const history = useHistory();
 
     useEffect(() => {
         api.getCategories().then(categories => {
@@ -34,25 +36,32 @@ const App = () => {
     }, []);
 
     function addCategory() {
-        api.addCategory('new category');
+        api.addCategory('new category')
+        .then((res) => {
+            console.log('Client: Category created');
+            history.replace(`${res.data.id}`);
+            window.location.reload();
+        })
+        .catch(() => {
+            alert('Can\'t create category.');
+            console.log('Client: fail to create category');
+        });
     }
 
     return (
         <Router>
             <div className="grid2C">
                 <div className="category">
-                    <ul>
-                        {categories ? (
-                            categories.map(category => (
-                                <NavLink activeClassName="selectedCategory" to={`/${category._id}`}>
-                                    <span className="categoryName">{category.name}</span>
-                                    <div className="numOfItems">{category.num_of_item}</div>
-                                </NavLink>
-                            ))
-                        ) : (
-                            <div>Loading ...</div> 
-                        )}
-                    </ul>
+                    {categories ? (
+                        categories.map(category => (
+                            <NavLink activeClassName="selectedCategory" to={`/${category._id}`}>
+                                <span className="categoryName">{category.name}</span>
+                                <div className="numOfItems">{category.num_of_item}</div>
+                            </NavLink>
+                        ))
+                    ) : (
+                        <div>Loading ...</div> 
+                    )}
                     <button className="noBackgroundBtn newFolder" onClick={addCategory}>
                         <FontAwesomeIcon icon={['fas', 'plus-circle']} />
                         New Folder

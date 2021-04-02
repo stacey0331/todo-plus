@@ -5,17 +5,9 @@ const api = axios.create({
 });
 
 const addCategory = name => {
-    api.post('/addCategory', {
+    return api.post('/addCategory', {
         name: name,
-        num_of_item: 10,
-    })
-    .then(() => {
-        console.log('Client: Category created');
-        window.location.reload();
-    })
-    .catch(() => {
-        alert('Can\'t create category.');
-        console.log('Client: fail to create category');
+        num_of_item: 0,
     });
 };
 
