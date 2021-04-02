@@ -4,10 +4,12 @@ import { useHistory, useLocation } from "react-router-dom";
 
 import api from '../api';
 
-const Main = ({ todos }) => {
-    const [showAddPopup, setShowAddPopup] = useState(false);
+const Main = ({ todos, categoryName }) => {
     const category_id = useLocation().pathname.substring(1);
     const history = useHistory();
+    const [showAddPopup, setShowAddPopup] = useState(false);
+    const [titleToggle, setTitleToggle] = useState(true);
+    const [newTitle, setNewTitle] = useState(categoryName);
 
     function showAddTaskPopup() {
         setShowAddPopup(true);
@@ -56,6 +58,16 @@ const Main = ({ todos }) => {
         }
     }
 
+    function handleEditTitle(evt) {
+        setTitleToggle(true);
+        evt.preventDefault();
+        evt.stopPropagation();
+        api.updateCategoryById(category_id, {
+            name: newTitle,
+            num_of_item: todos.length
+        })
+    }
+
     return (
         <>
             {/* Add task pop up starts */}
@@ -81,7 +93,29 @@ const Main = ({ todos }) => {
             {/* Add task pop up ends */}
 
 
-            <h2> Title </h2>
+            { titleToggle ? (
+                <h2
+                    onDoubleClick={() => {
+                        setTitleToggle(false)
+                    }}> {categoryName} </h2>
+            ) : (
+                <h2>
+                    <input
+                        type='text'
+                        value={newTitle}
+                        onBlur={handleEditTitle}
+                        onChange={evt => {
+                            setNewTitle(evt.target.value);
+                        }}
+                        onKeyDown={evt => {
+                            if (evt.key === 'Enter') {
+                                handleEditTitle(evt);
+                            }
+                        }}
+                    />
+                </h2>
+            )}
+            
             <button className="noBackgroundBtn" onClick={showAddTaskPopup}>
                 <FontAwesomeIcon icon={['fas', 'plus']} />
                 Add task

@@ -4,10 +4,12 @@ import { BrowserRouter as Router,
     Route,
 } from 'react-router-dom';
 import { hot } from "react-hot-loader";
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+
 import "./App.css";
 
 // Components
@@ -15,7 +17,7 @@ import Main from './components/Main';
 
 import api from './api';
 
-library.add(fas, fab)
+library.add(fas, fab);
 
 const App = () => {
     const [todos, setTodos] = useState(null);
@@ -63,7 +65,10 @@ const App = () => {
                     )} />
                     {todos && (
                         <Route path="/:category_id" render={({ match }) => (
-                            <Main todos={todos.filter(todo => todo.category_id === match.params.category_id )} />
+                            <Main 
+                                todos={todos.filter(todo => todo.category_id === match.params.category_id )}
+                                categoryName={categories.find(category => category._id === match.params.category_id).name}
+                            />
                         )} />
                     )}
                 </div>

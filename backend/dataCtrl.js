@@ -179,6 +179,43 @@ updateTodo = (req, res) => {
     });
 };
 
+updateCategory = (req, res) => {
+    const body = req.body;
+
+    if (!body) {
+        return res.status(400).json({
+            success: false,
+            error: 'You must provide a body to update',
+        });
+    }
+
+    categoryModel.findOne({ _id: req.params.id }, (err, category) => {
+        if (err) {
+            return res.status(404).json({
+                err,
+                message: 'Category not found!',
+            })
+        }
+        category.name = body.name;
+        category.num_of_item = body.num_of_item;
+        category
+            .save()
+            .then(() => {
+                return res.status(200).json({
+                    success: true,
+                    id: category._id,
+                    message: 'Category updated!',
+                })
+            })
+            .catch(error => {
+                return res.status(404).json({
+                    error,
+                    message: 'Category not updated!',
+                })
+            })
+    });
+};
+
 module.exports = {
     addItem,
     getTodoList,
@@ -186,5 +223,6 @@ module.exports = {
     updateTodo,
     addCategory,
     getCategories,
-    deleteCategory
+    deleteCategory,
+    updateCategory
 }

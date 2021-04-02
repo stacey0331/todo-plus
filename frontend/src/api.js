@@ -55,6 +55,17 @@ const updateTodoById = (id, payload) => {
     })
 }
 
+const updateCategoryById = (id, payload) => {
+    api.put(`updateCategory/${id}`, payload)
+    .then(() => {
+        console.log('Client: category updated');
+        window.location.reload();
+    })
+    .catch(() => {
+        console.log('Client: some error occurs while updating category');
+    })
+}
+
 const apis = {
     addItem,
     getTodoList,
@@ -62,7 +73,8 @@ const apis = {
     updateTodoById,
     addCategory,
     getCategories,
-    deleteCategoryById
+    deleteCategoryById,
+    updateCategoryById
 }
 
 export default apis;
