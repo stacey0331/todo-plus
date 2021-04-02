@@ -21,12 +21,21 @@ const addItem = (itemName, categoryId, time, priority) => {
     })
     .then(() => {
         console.log('Client: Item created');
-        window.location.reload();
     })
     .catch(() => {
         alert('Can\'t create item. Please make sure you fill out all the fields');
         console.log('Client: fail to create item');
     });
+
+    api.put(`/updateCategoryNumOfItemPlusOne/${categoryId}`)
+    .then(() => {
+        console.log('Client: num_of_item increased 1');
+    })
+    .catch(() => {
+        console.log('Client: num_of_item failed to increase 1');
+    });
+
+    window.location.reload();
 };
 
 const getTodoList = () => api.get('/getTodoList');
@@ -47,8 +56,11 @@ const updateTodoById = (id, payload) => {
     })
 }
 
-const updateCategoryById = (id, payload) => {
-    api.put(`updateCategory/${id}`, payload)
+const updateCategoryById = (id, name, num_of_item) => {
+    api.put(`updateCategory/${id}`, {
+        name: name,
+        num_of_item: num_of_item
+    })
     .then(() => {
         console.log('Client: category updated');
         window.location.reload();
@@ -66,7 +78,7 @@ const apis = {
     addCategory,
     getCategories,
     deleteCategoryById,
-    updateCategoryById
+    updateCategoryById,
 }
 
 export default apis;

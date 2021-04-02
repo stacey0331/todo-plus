@@ -66,10 +66,13 @@ const Main = ({ todos, categoryName }) => {
         setTitleToggle(true);
         evt.preventDefault();
         evt.stopPropagation();
-        api.updateCategoryById(category_id, {
-            name: newTitle,
-            num_of_item: todos.length
-        })
+        api.updateCategoryById(category_id, newTitle, todos.length);
+    }
+
+    function handleDeleteTodo(todoId) {
+        if (confirm('Delete item?')) {
+            api.deleteItemById(todoId) && api.updateCategoryById(category_id, newTitle, todos.length - 1);
+        }
     }
 
     return (
@@ -145,7 +148,7 @@ const Main = ({ todos, categoryName }) => {
                             </span>
                             <label className={todo.completed ? 'completedItem' : 'incompleteItem'}> {todo.item_name} </label>
                             <input type="checkbox" id="completeCheckbox" defaultChecked={todo.completed} onChange={handleCheckbox} />
-                            <button className="noBackgroundBtn" onClick={() => (confirm('Delete item?') && api.deleteItemById(todo._id) && window.location.reload())}>
+                            <button className="noBackgroundBtn" onClick={handleDeleteTodo.bind(null, todo._id)}>
                                 <FontAwesomeIcon icon={['fas', 'times']} />
                             </button>
                             <div>{new Intl.DateTimeFormat('en-US', options).format(new Date(todo.time))}</div>

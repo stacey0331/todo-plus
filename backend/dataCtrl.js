@@ -134,8 +134,6 @@ deleteCategory = async (req, res) => {
                 .status(404)
                 .json({ success: false, error: `Todo not found` });
         }
-
-        return res.status(200).json({ success: true, data: todo });
     }).catch(err => console.log(err));
 };
 
@@ -216,6 +214,33 @@ updateCategory = (req, res) => {
     });
 };
 
+updateCategoryNumOfItemPlusOne = (req, res) => {
+    categoryModel.findOne({ _id: req.params.id }, (err, category) => {
+        if (err) {
+            return res.status(404).json({
+                err,
+                message: 'Category not found!',
+            })
+        }
+        category.num_of_item = category.num_of_item + 1;
+        category
+            .save()
+            .then(() => {
+                return res.status(200).json({
+                    success: true,
+                    id: category._id,
+                    message: 'Category number of item updated!',
+                })
+            })
+            .catch(error => {
+                return res.status(404).json({
+                    error,
+                    message: 'Category number of item not updated!',
+                })
+            })
+    });
+};
+
 module.exports = {
     addItem,
     getTodoList,
@@ -224,5 +249,6 @@ module.exports = {
     addCategory,
     getCategories,
     deleteCategory,
-    updateCategory
+    updateCategory,
+    updateCategoryNumOfItemPlusOne
 }
