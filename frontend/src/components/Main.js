@@ -39,19 +39,21 @@ const Main = ({ todos, categoryName }) => {
         timeZone: 'Asia/Shanghai'
     };
 
-    function handleCheckbox() {
+    function handleCheckbox(id) {
+        let todo = todos.find(todo => todo._id === id);
         let newTodo = JSON.parse(JSON.stringify(todo));
         newTodo.completed = !newTodo.completed;
-        setTodo(newTodo);
 
         const payload = {
-            item_name: newTodo.text,
+            item_name: newTodo.item_name,
             category_id: newTodo.category_id,
             time: newTodo.time,
             priority: newTodo.priority,
             completed: newTodo.completed,
         }
-        api.updateTodoById(props.id, payload);
+
+        api.updateTodoById(todo._id, payload);
+        window.location.reload();
     }
 
     function handleDeleteCategory() {
@@ -147,7 +149,7 @@ const Main = ({ todos, categoryName }) => {
                                 'greenDot' : 'greyDot'}>
                             </span>
                             <label className={todo.completed ? 'completedItem' : 'incompleteItem'}> {todo.item_name} </label>
-                            <input type="checkbox" id="completeCheckbox" defaultChecked={todo.completed} onChange={handleCheckbox} />
+                            <input type="checkbox" id="completeCheckbox" defaultChecked={todo.completed} onChange={handleCheckbox.bind(null, todo._id)} />
                             <button className="noBackgroundBtn" onClick={handleDeleteTodo.bind(null, todo._id)}>
                                 <FontAwesomeIcon icon={['fas', 'times']} />
                             </button>
