@@ -75,7 +75,7 @@ const App = () => {
                     {todos && (
                         <Route path="/:category_id" render={({ match }) => (
                             <Main 
-                                todos={todos.filter(todo => todo.category_id === match.params.category_id )}
+                                todosIn={todos.filter(todo => todo.category_id === match.params.category_id )}
                                 categoryName={categories.find(category => category._id === match.params.category_id).name}
                             />
                         )} />

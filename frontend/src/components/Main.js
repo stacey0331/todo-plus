@@ -4,16 +4,38 @@ import { useHistory, useLocation } from "react-router-dom";
 
 import api from '../api';
 
-const Main = ({ todos, categoryName }) => {
+const Main = ({ todosIn, categoryName }) => {
     const category_id = useLocation().pathname.substring(1);
     const history = useHistory();
     const [showAddPopup, setShowAddPopup] = useState(false);
     const [titleToggle, setTitleToggle] = useState(true);
     const [newTitle, setNewTitle] = useState(categoryName);
+    const [todos, setTodos] = useState(todosIn);
+    const [sortType, setSortType] = useState('created');
 
     useEffect(() => {
+        // When switching categoreis
         setTitleToggle(true);
-    }, [categoryName]);
+        setNewTitle(categoryName);
+        setSortType('created');
+    }, [todosIn]);
+
+    useEffect(() => {
+        setTodos(todosIn);
+    }, [todosIn]);
+
+    useEffect(() => {
+        let sortedTodos = todos;
+        if (sortType === 'created') {
+            setTodos(todosIn);
+            return;
+        } else if (sortType === 'priority') {
+            sortedTodos = [...todos].sort((a, b) => a[sortType] - b[sortType]);
+        } else if (sortType === 'time') {
+            sortedTodos = [...todos].sort((a, b) => new Date(a[sortType]) - new Date(b[sortType]));
+        }
+        setTodos(sortedTodos);
+    }, [sortType]);
 
     function showAddTaskPopup() {
         setShowAddPopup(true);
@@ -112,9 +134,6 @@ const Main = ({ todos, categoryName }) => {
                     <input
                         type='text'
                         value={newTitle}
-                        onBlur={() => {
-                            setTitleToggle(true);
-                        }}
                         onChange={evt => {
                             setNewTitle(evt.target.value);
                         }}
@@ -133,10 +152,10 @@ const Main = ({ todos, categoryName }) => {
                 Add task
             </button>
             <button onClick={handleDeleteCategory}>Delete category</button>
-            <select>
-                <option>Time created</option>
-                <option>Priority: high to low</option>
-                <option>Time</option>
+            <select onChange={e => setSortType(e.target.value)} value={sortType}>
+                <option value="created">Time created</option>
+                <option value="priority">Priority: high to low</option>
+                <option value="time">Due</option>
             </select>
             <div>
                 {todos ? (
