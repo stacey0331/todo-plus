@@ -4,9 +4,23 @@
     font-family: 'Quicksand', sans-serif;
 }
 
+body {
+    min-width: 700px;
+}
+
+h2 {
+    font-size: 26px;
+    margin-bottom: -20px;
+}
+
+#welcomeTitle {
+    margin: 30px;
+    white-space: nowrap;
+}
+
 .grid2C {
     display: grid;
-    grid-template-columns: 300px auto;
+    grid-template-columns: $sideBarWidth auto;
     height: 100%;
 }
 
@@ -14,8 +28,9 @@
     background-color: $theme-color;
     height: 100%;
 
-    .categoryList {
+    #categoryList {
         height: 650px;
+        overflow-y: scroll;
     }
 
     .categoryName {
@@ -59,7 +74,7 @@ html, body, #root {
 }
 
 .coloredBtn {
-    background-color: #6200EE;
+    background-color: $theme-color_dark;
     color: white;
     outline: none;
     border: none;
@@ -103,6 +118,17 @@ html, body, #root {
     display: block;
 }
 
+#newFolder {
+    position: absolute;
+    bottom: 20px;
+    color: white;
+    font-size: 17px;
+    background-color: $theme-color;
+    width: $sideBarWidth;
+    text-align: left;
+    padding-left: 10px;
+}
+
 /* Pop up */
 /* background */
 .modal {
@@ -123,15 +149,25 @@ html, body, #root {
         margin: auto;
         padding: 20px;
         border: 1px solid #888;
-        width: 80%;
+        width: 700px;
+
+        #addTaskForm {
+            margin: 0px 40px;
+        }
+
+        #submitNewTaskBtn {
+            margin-bottom: 10px;
+
+        }
     }
 
         /* The Close Button */
     .close {
         color: #aaaaaa;
         float: right;
-        font-size: 28px;
+        font-size: 30px;
         font-weight: bold;
+        margin-right: 15px;
     }
 
     .close:hover,
@@ -145,16 +181,117 @@ html, body, #root {
 textarea {
     display: block;
     outline: none;
-    border-radius: 5px;
-    width: 80%;
+    border-radius: 7px;
+    border: 1px solid grey;
+    width: 600px;
     height: 80px;
     resize: none;
 }
 
+#addTaskSelect {
+    margin: 10px 0px;
+
+    #selectDate, #selectTime, #selectPriority {
+        margin-right: 10px;
+        border-radius: 3px;
+        border: 1px solid grey;
+        padding: 3px;
+    }
+}
+
 .completedItem {
     text-decoration: line-through;
+    color: grey;
 }
 
 .incompleteItem {
     text-decoration: none;
+}
+
+#todoList {
+    overflow-y: scroll;
+}
+
+#mainAll {
+    margin: 40px 10%;
+
+    #changeCategoryInput {
+        height: 35px;
+        width: 300px;
+        border-radius: 5px;
+        border: 1px solid grey;
+        margin-right: 10px;
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    #mainCtrl {
+        display: block;
+        width: 100%;
+        text-align: right;
+        margin-bottom: 30px;
+        white-space: nowrap;
+    
+        #addTaskBtn {
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+    
+        #deleteCategoryBtn {
+            padding: 8px;
+            background-color: white;
+            border-radius: 7px;
+            border: 1px solid grey;
+            font-size: 12px;
+        }
+    
+        #sortSelect {
+            margin-left: 10px;
+            padding: 6px;
+            background-color: white;
+            border-radius: 5px;
+            border: 1px solid grey;
+            font-size: 12px;
+        }
+    }
+    
+    #mainTodos {
+        width: 100%;
+    
+        #todoNameLabel {
+            display: inline-block;
+            width: 80%;
+            font-size: larger;
+            margin-left: 10px;
+        }
+    
+        #oneTodoItem {
+            border-bottom: 1px solid black;
+            padding: 10px;
+            white-space: nowrap;
+        }
+    
+        #todoDate {
+            color: grey;
+            margin-top: 6px;
+        }
+    
+        #completeCheckbox {
+            -ms-transform: scale(1.5); /* IE */
+            -moz-transform: scale(1.5); /* FF */
+            -webkit-transform: scale(1.5); /* Safari and Chrome */
+            -o-transform: scale(1.5); /* Opera */
+            transform: scale(1.5);
+            margin-right: 30px;
+            padding: 10px;
+
+        }
+
+        #deleteItemCross {
+            :hover {
+                color: #b83333;
+            }
+        }
+    }
+    
 }

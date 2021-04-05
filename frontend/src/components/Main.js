@@ -100,15 +100,15 @@ const Main = ({ todosIn, categoryName }) => {
     }
 
     return (
-        <>
+        <div id="mainAll">
             {/* Add task pop up starts */}
             <div className={`modal ${showAddPopup ? "displayBlock" : "displayNone"}`}>
                 <div className="modal-content">
                     <span className="close" onClick={closePopup}>&times;</span>
-                    <form onSubmit={submitAddTaskForm}>
+                    <form id="addTaskForm" onSubmit={submitAddTaskForm}>
                         <h3>Add task</h3>
                         <textarea id="todoName"></textarea>
-                        <div>
+                        <div id="addTaskSelect">
                             <input id="selectDate" type="date" />
                             <input id="selectTime" type="time" />
                             <select id="selectPriority">
@@ -117,7 +117,7 @@ const Main = ({ todosIn, categoryName }) => {
                                 <option value={1}>High</option>
                             </select>
                         </div>
-                        <input className="coloredBtn" type="submit" value="Add" />
+                        <input id="submitNewTaskBtn" className="coloredBtn" type="submit" value="Add" />
                     </form>
                 </div>
             </div>
@@ -132,6 +132,7 @@ const Main = ({ todosIn, categoryName }) => {
             ) : (
                 <h2>
                     <input
+                        id="changeCategoryInput"
                         type='text'
                         value={newTitle}
                         onChange={evt => {
@@ -143,43 +144,53 @@ const Main = ({ todosIn, categoryName }) => {
                             }
                         }}
                     />
-                    <button onClick={handleEditTitle}>Done</button>
+                    <button className="coloredBtn" onClick={handleEditTitle}>Done</button>
                 </h2>
             )}
             
-            <button className="noBackgroundBtn" onClick={showAddTaskPopup}>
-                <FontAwesomeIcon icon={['fas', 'plus']} />
-                Add task
-            </button>
-            <button onClick={handleDeleteCategory}>Delete category</button>
-            <select onChange={e => setSortType(e.target.value)} value={sortType}>
-                <option value="created">Time created</option>
-                <option value="priority">Priority: high to low</option>
-                <option value="time">Due</option>
-            </select>
-            <div>
-                {todos ? (
+            <div id="mainCtrl">
+                <div>
+                    <button id="addTaskBtn" className="noBackgroundBtn" onClick={showAddTaskPopup}>
+                        <FontAwesomeIcon icon={['fas', 'plus']} /> &nbsp;
+                        Add task
+                    </button>
+                </div>
+                <button id="deleteCategoryBtn" onClick={handleDeleteCategory}>Delete category</button>
+                <select id="sortSelect" onChange={e => setSortType(e.target.value)} value={sortType}>
+                    <option value="created">Time created</option>
+                    <option value="priority">Priority: high to low</option>
+                    <option value="time">Due</option>
+                </select>
+            </div>
+
+            <div id="mainTodos">
+                {todos.length ? (
                     todos.map(todo => (
-                        <div key={todo._id}>
+                        <div id="oneTodoItem" key={todo._id}>
                             <span 
                                 className={todo.priority === 1 ?
                                 'redDot': todo.priority === 2 ?
                                 'yellowDot' : todo.priority === 3 ?
                                 'greenDot' : 'greyDot'}>
                             </span>
-                            <label className={todo.completed ? 'completedItem' : 'incompleteItem'}> {todo.item_name} </label>
+                            <label id="todoNameLabel" className={todo.completed ? 'completedItem' : 'incompleteItem'}> {todo.item_name} </label>
                             <input type="checkbox" id="completeCheckbox" defaultChecked={todo.completed} onChange={handleCheckbox.bind(null, todo._id)} />
                             <button className="noBackgroundBtn" onClick={handleDeleteTodo.bind(null, todo._id)}>
-                                <FontAwesomeIcon icon={['fas', 'times']} />
+                                <FontAwesomeIcon id="deleteItemCross" icon={['fas', 'times']} size="lg" />
                             </button>
-                            <div>{new Intl.DateTimeFormat('en-US', options).format(new Date(todo.time))}</div>
+                            <div id="todoDate">
+                                {new Intl.DateTimeFormat('en-US', options).format(new Date(todo.time))}
+                            </div>
                         </div>
                     ))
                 ) : (
-                    <div>Loading ...</div> 
+                    <div>
+                        <div>No todos here yet!</div>
+                        <div>Add some todos by clicking "+ Add task" on the top right corner.</div>
+                    </div> 
                 )}
             </div>
-        </>
+        </div>
     );
 }
 

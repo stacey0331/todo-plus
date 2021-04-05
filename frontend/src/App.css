@@ -2,6 +2,20 @@
   font-family: "Quicksand", sans-serif;
 }
 
+body {
+  min-width: 700px;
+}
+
+h2 {
+  font-size: 26px;
+  margin-bottom: -20px;
+}
+
+#welcomeTitle {
+  margin: 30px;
+  white-space: nowrap;
+}
+
 .grid2C {
   display: grid;
   grid-template-columns: 300px auto;
@@ -12,8 +26,9 @@
   background-color: #b499da;
   height: 100%;
 }
-.category .categoryList {
+.category #categoryList {
   height: 650px;
+  overflow-y: scroll;
 }
 .category .categoryName {
   margin-left: 30px;
@@ -101,6 +116,17 @@ html, body, #root {
   display: block;
 }
 
+#newFolder {
+  position: absolute;
+  bottom: 20px;
+  color: white;
+  font-size: 17px;
+  background-color: #b499da;
+  width: 300px;
+  text-align: left;
+  padding-left: 10px;
+}
+
 /* Pop up */
 /* background */
 .modal {
@@ -130,13 +156,20 @@ html, body, #root {
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  width: 700px;
+}
+.modal .modal-content #addTaskForm {
+  margin: 0px 40px;
+}
+.modal .modal-content #submitNewTaskBtn {
+  margin-bottom: 10px;
 }
 .modal .close {
   color: #aaaaaa;
   float: right;
-  font-size: 28px;
+  font-size: 30px;
   font-weight: bold;
+  margin-right: 15px;
 }
 .modal .close:hover,
 .modal .close:focus {
@@ -148,16 +181,105 @@ html, body, #root {
 textarea {
   display: block;
   outline: none;
-  border-radius: 5px;
-  width: 80%;
+  border-radius: 7px;
+  border: 1px solid grey;
+  width: 600px;
   height: 80px;
   resize: none;
 }
 
+#addTaskSelect {
+  margin: 10px 0px;
+}
+#addTaskSelect #selectDate, #addTaskSelect #selectTime, #addTaskSelect #selectPriority {
+  margin-right: 10px;
+  border-radius: 3px;
+  border: 1px solid grey;
+  padding: 3px;
+}
+
 .completedItem {
   text-decoration: line-through;
+  color: grey;
 }
 
 .incompleteItem {
   text-decoration: none;
+}
+
+#todoList {
+  overflow-y: scroll;
+}
+
+#mainAll {
+  margin: 40px 10%;
+}
+#mainAll #changeCategoryInput {
+  height: 35px;
+  width: 300px;
+  border-radius: 5px;
+  border: 1px solid grey;
+  margin-right: 10px;
+  font-size: 20px;
+  font-weight: 600;
+}
+#mainAll #mainCtrl {
+  display: block;
+  width: 100%;
+  text-align: right;
+  margin-bottom: 30px;
+  white-space: nowrap;
+}
+#mainAll #mainCtrl #addTaskBtn {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+#mainAll #mainCtrl #deleteCategoryBtn {
+  padding: 8px;
+  background-color: white;
+  border-radius: 7px;
+  border: 1px solid grey;
+  font-size: 12px;
+}
+#mainAll #mainCtrl #sortSelect {
+  margin-left: 10px;
+  padding: 6px;
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid grey;
+  font-size: 12px;
+}
+#mainAll #mainTodos {
+  width: 100%;
+}
+#mainAll #mainTodos #todoNameLabel {
+  display: inline-block;
+  width: 80%;
+  font-size: larger;
+  margin-left: 10px;
+}
+#mainAll #mainTodos #oneTodoItem {
+  border-bottom: 1px solid black;
+  padding: 10px;
+  white-space: nowrap;
+}
+#mainAll #mainTodos #todoDate {
+  color: grey;
+  margin-top: 6px;
+}
+#mainAll #mainTodos #completeCheckbox {
+  -ms-transform: scale(1.5);
+  /* IE */
+  -moz-transform: scale(1.5);
+  /* FF */
+  -webkit-transform: scale(1.5);
+  /* Safari and Chrome */
+  -o-transform: scale(1.5);
+  /* Opera */
+  transform: scale(1.5);
+  margin-right: 30px;
+  padding: 10px;
+}
+#mainAll #mainTodos #deleteItemCross :hover {
+  color: #b83333;
 }

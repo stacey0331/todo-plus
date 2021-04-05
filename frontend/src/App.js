@@ -52,25 +52,27 @@ const App = () => {
         <Router>
             <div className="grid2C">
                 <div className="category">
-                    {categories ? (
-                        categories.map(category => (
-                            <NavLink activeClassName="selectedCategory" to={`/${category._id}`}>
-                                <span className="categoryName">{category.name}</span>
-                                <div className="numOfItems">{category.num_of_item}</div>
-                            </NavLink>
-                        ))
-                    ) : (
-                        <div>Loading ...</div> 
-                    )}
-                    <button className="noBackgroundBtn newFolder" onClick={addCategory}>
-                        <FontAwesomeIcon icon={['fas', 'plus-circle']} />
+                    <div id="categoryList">
+                        {categories ? (
+                            categories.map(category => (
+                                <NavLink activeClassName="selectedCategory" to={`/${category._id}`}>
+                                    <span className="categoryName">{category.name}</span>
+                                    <div className="numOfItems">{category.num_of_item}</div>
+                                </NavLink>
+                            ))
+                        ) : (
+                            <div>Loading ...</div> 
+                        )}
+                    </div>
+                    <button id="newFolder" className="noBackgroundBtn" onClick={addCategory}>
+                        <FontAwesomeIcon icon={['fas', 'plus-circle']} color="grey" />&nbsp;
                         New Folder
                     </button>
                 </div>
 
-                <div className="todoList">
+                <div id="todoList">
                     <Route exact path="/" render={() => (
-                        <h1>Welcome to TODO +</h1>
+                        <h1 id="welcomeTitle">Welcome to TODO +</h1>
                     )} />
                     {todos && (
                         <Route path="/:category_id" render={({ match }) => (
