@@ -125,10 +125,13 @@ const Main = ({ todosIn, categoryName }) => {
 
 
             { titleToggle ? (
-                <h2
-                    onDoubleClick={() => {
-                        setTitleToggle(false)
-                    }}> {categoryName} </h2>
+                <div className="tooltip">
+                    <h2
+                        onDoubleClick={() => {
+                            setTitleToggle(false)
+                        }}> {categoryName} </h2>
+                    <span className="tooltiptext">Double click to edit</span>
+                </div>
             ) : (
                 <h2>
                     <input
@@ -186,7 +189,7 @@ const Main = ({ todosIn, categoryName }) => {
                 ) : (
                     <div>
                         <div>No todos here yet!</div>
-                        <div>Add some todos by clicking "+ Add task" on the top right corner.</div>
+                        <div>Add some todos by clicking the "+ Add task" on the top right corner.</div>
                     </div> 
                 )}
             </div>

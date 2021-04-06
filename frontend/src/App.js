@@ -27,7 +27,7 @@ const App = () => {
 
     useEffect(() => {
         api.getCategories().then(categories => {
-            setCategories(categories.data.data);
+            setCategories(categories.data.data.reverse());
         });
 
         api.getTodoList().then(todosIn => {
